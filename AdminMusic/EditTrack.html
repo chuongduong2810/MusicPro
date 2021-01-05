@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script
+        type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- bootstrap-css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- //bootstrap-css -->
+    <!-- Custom CSS -->
+    <link href="css/style_admin.css" rel='stylesheet' />
+    <link type="text/html" href="css/style-responsive.css" rel="stylesheet" />
+    <!-- font CSS -->
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+
+    <!-- //font-awesome icons -->
+    <link type="text/html" rel="stylesheet" href="logincss/css/main.css">
+    <link type="text/html" rel="stylesheet" href="logincss/css/util.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="js/jquery2.0.3.min.js"></script>
+
+
+</head>
+
+<body>
+    <section id="container">
+        <header class="header fixed-top clearfix">
+            <div class="brand">
+                <a href="./admin_product.html" class="logo">
+                    ACCESSORIES SHOP
+                </a>
+                <div class="sidebar-toggle-box">
+                    <div class="fa fa-bars"></div>
+                </div>
+            </div>
+        </header>
+
+        <aside>
+            <div id="sidebar" class="nav-collapse">
+                <div class="leftside-navigation">
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <li>
+                            <a href="./admin_bill.html">
+                                <i class="fas fa-wallet"></i>
+                                <span>Quản lý đơn hàng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./admin_product.html" class="active">
+                                <i class="fa fa-book"></i>
+                                <span>Quản lý sản phẩm</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./admin_category.html">
+                                <i class="fas fa-list-alt"></i>
+                                <span>Quản lý danh mục</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./admin_user.html">
+                                <i class="fa fa-user"></i>
+                                <span>Quản lý người dùng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./admin_comment.html">
+                                <i class="fas fa-comment"></i>
+                                <span>Quản lý bình luận</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./admin_contact.html">
+                                <i class="fas fa-address-book"></i>
+                                <span>Quản lý liên hệ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./admin_login.html" onclick="logout()">
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper" id="adminContent">
+                <h3 class="title_component">CẬP NHẬT BÀI HÁT</h3>
+                <form class="form-add">
+
+                    <p>Tên bài hát</p>
+                    <input type="text" class="input_el" placeholder="Nhập tên bài hát" id="nameProduct" required>
+
+                    <p>Hình ảnh</p>
+                    <input type="text" class="input_el" placeholder="Nhập link sản phẩm" id="imageProduct" required>
+                    <p>Nhạc sĩ</p>
+                    <input type="text" class="input_el" placeholder="Nhập tên nhạc sĩ" id="priceProduct" required>
+                    <p>Ca sĩ</p>
+                    <input type="text" class="input_el" placeholder="Nhập tên ca sĩ" id="priceProduct" required>
+                    <p>File Audio</p>
+                    <input type="file" class="input_el" id="amountProduct" required>
+
+                    <button type="submit" value="Thêm sản phẩm" class="btn btn-primary">Thêm bài hát</button>
+                </form>
+            </section>
+        </section>
+
+        <!--main content end-->
+    </section>
+    <script src="js/admin_updateproduct.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/jquery.slimscroll.js"></script>
+    <script src="js/jquery.nicescroll.js"></script>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+    <script src="js/jquery.scrollTo.js"></script>
+
+</body>
+
+</html>
