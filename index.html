@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 
@@ -31,7 +25,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
-<!-- /w3layouts-agile -->
 
 <body class="sticky-header left-side-collapsed" onload="initMap()">
 	<section>
@@ -204,10 +197,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							<!--//-->
 							<ul class="next-top">
-								<li><a class="ar" href="#"> <img src="images/arrow.png" alt="" /></a></li>
-								<li><a class="ar2" href="#"><img src="images/arrow2.png" alt="" /></i></a></li>
-
+								<li><a class="ar" href="#"> <img onclick="buttonPre()" src="images/arrow.png" alt="" /></a></li>
+								<li><a class="ar2" href="#"><img onclick="buttonNext()" src="images/arrow2.png" alt="" /></i></a></li>
 							</ul>
+							
 						</div>
 						<div class="col-md-4 login-pop">
 							<div id="loginpop"> <a href="#" id="loginButton"><span>Login <i
@@ -387,7 +380,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										document.getElementById('newRelease').innerHTML +=
 											`
 											<div class="col-md-3 content-grid last-grid">
-												<a class="play-icon" href="#"><img src="${host}/imageDATA/${item.artworkImage}" title="${item.name}"></a>
+												<a onclick="listenNow('${item._id}')"class="play-icon"><img src="${host}/imageDATA/${item.artworkImage}" title="${item.name}"></a>
 												<a class="button play-icon" onclick="listenNow('${item._id}')">${item.name}</a>
 											</div>
 										`;
@@ -407,6 +400,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								playAudio.load();
 								playAudio.play();
 							}
+								function buttonPre (id) { 
+									alert('Pre');
+								 }
+								function buttonNext (id) { 
+									alert('Next');
+								 }
 						</script>
 						<script>
 
