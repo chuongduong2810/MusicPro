@@ -369,9 +369,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!--//End-albums-->
 						<!--//discover-view-->
 						<script>
-							var host = 'https://5ff12563db1158001748ade4.mockapi.io/music';
+							var host = 'http://168.63.245.74:3000';
 							var listbaihat = [];
-							axios.get(`${host}/track`)
+							axios.get(`${host}/music/track`)
 								.then(res => {
 									res.data.map(item => {
 										listbaihat.push(item);
@@ -379,7 +379,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											`
 											<div class="col-md-3 content-grid last-grid">
 												<a class="play-icon" href="#"><img src="images/v6.jpg" title="${item.name}"></a>
-												<a class="button play-icon" onclick="listenNow(${item.id})">Listen now</a>
+												<a class="button play-icon" onclick="listenNow('${item._id}')">Listen now</a>
 											</div>
 										`
 									})
@@ -387,15 +387,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								})
 							function listenNow(id) {
 								var playAudio = document.getElementById('audio-player');
-
-								var baihat = listbaihat.find(item => parseInt(item.id) == id);
-								console.log(typeof (`${host}/musicData/${baihat.filename}`))
-
-								//playAudio.src = `${host}/musicData/${baihat.filename}`;
-								//console.log(y);
-								// x.load();
-								// x.play();
-								//console.log(listbaihat);
+								var baihat = listbaihat.find(item => item._id == id);
+								console.log(`${host}/musicData/${baihat.fileName}`)
+								//console.log(baihat);
+								playAudio.src = `${host}/musicData/${baihat.fileName}`;
+								playAudio.load();
+								playAudio.play();
 							}
 						</script>
 						<script>
