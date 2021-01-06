@@ -173,7 +173,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="col-md-4 player">
 							<div class="audio-player">
 								<audio id="audio-player" controls="controls">
-									<source id="audioSource" src="media/Georgia.mp3" type="audio/mpeg">
+									<source id="audioSource" src="" type="audio/mpeg">
 									</source>
 							</div>
 							<!---->
@@ -197,10 +197,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							<!--//-->
 							<ul class="next-top">
-								<li><a class="ar" href="#"> <img onclick="buttonPre()" src="images/arrow.png" alt="" /></a></li>
-								<li><a class="ar2" href="#"><img onclick="buttonNext()" src="images/arrow2.png" alt="" /></i></a></li>
+								<li><a class="ar" href="#"> <img onclick="buttonPre()" src="images/arrow.png"
+											alt="" /></a></li>
+								<li><a class="ar2" href="#"><img onclick="buttonNext()" src="images/arrow2.png"
+											alt="" /></i></a></li>
 							</ul>
-							
 						</div>
 						<div class="col-md-4 login-pop">
 							<div id="loginpop"> <a href="#" id="loginButton"><span>Login <i
@@ -364,14 +365,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<script>
 							var host = 'http://168.63.245.74:3000';
 							var listTrack = [];
+							var newTrack = [];
 							axios.get(`${host}/music/track`)
 								.then(res => {
-									lisTrack = res.data;
-									var newTrack = res.data.sort((item1, item2) => {
+									listTrack = res.data;
+									// res.data.map(item1 => {
+									// 	console.log("item1", item1.genre);
+									// 	// if (typeof (listGenres.find(item2 => item1.genre === item2.genre)) === 'undefined') {
+									// 	// 	listGenres.push(item1.genre);
+									// 	// 	console.log("xxx");
+									// 	// }
+
+									// 	//if (item1.genre == "chill") console.log("xxx");
+									// 	//console.log(listGenres);
+									// 	//console.log(typeof (listGenres.find(item2 => { item1.genre == item2.genre })) === 'undefined');
+									// 	//console.log(listGenres);
+									// });
+									newTrack = res.data.sort((item1, item2) => {
 										if (item1.createdate > item2.createdate) return -1;
 										else if (item1.createdate < item2.createdate) return 1;
 										else return 0;
 									});
+
 									let i = 0;
 									newTrack.map(item => {
 										if (i > 3) {
@@ -386,64 +401,116 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										`;
 										i++;
 									})
-
 								})
 								.catch(err => {
 									console.log("Error Render New Track", err);
 								});
+							let check = false;
+							let id_play = '';
 							function listenNow(id) {
-								var playAudio = document.getElementById('audio-player');
-								var baihat = lisTrack.find(item => item._id == id);
-								console.log(`${host}/musicData/${baihat.fileName}`)
-								//console.log(baihat);
+								check = true;
+								id_play = id;
+								let playAudio = document.getElementById('audio-player');
+								let baihat = listTrack.find(item => item._id == id);
 								playAudio.src = `${host}/musicData/${baihat.fileName}`;
 								playAudio.load();
 								playAudio.play();
 							}
-								function buttonPre (id) { 
-									alert('Pre');
-								 }
-								function buttonNext (id) { 
-									alert('Next');
-								 }
+							function buttonPre() {
+								if (check != false) {
+									console.log(newTrack);
+									newTrack.map((item, index) => {
+										if (item._id === id_play) {
+											let baihat;
+											if (index === 0) {
+												let playAudio = document.getElementById('audio-player');
+												baihat = newTrack[newTrack.length - 1];
+												playAudio.src = `${host}/musicData/${baihat.fileName}`;
+												playAudio.load();
+												setTimeout(function () {
+													playAudio.play();
+												}, 1);
+												console.log(baihat);
+											}
+											else {
+												let playAudio = document.getElementById('audio-player');
+												baihat = newTrack[index - 1];
+												playAudio.src = `${host}/musicData/${baihat.fileName}`;
+												playAudio.load();
+												playAudio.play();
+												console.log(baihat);
+											}
+											id_play = baihat._id;
+										}
+									})
+									// let playAudio = document.getElementById('audio-player');
+									// let baihat = listTrack.find(item => item._id == id);
+									// playAudio.src = `${host}/musicData/${baihat.fileName}`;
+									// playAudio.load();
+									// playAudio.play();
+								}
+							}
+							function buttonNext() {
+							}
 						</script>
 						<script>
 
 						</script>
 						<div class="albums second">
 							<div class="tittle-head">
-								<h3 class="tittle">Album &nbsp<span class="new">View all</span></h3>
+								<h3 class="tittle">Genres &nbsp<span class="new">View all</span></h3>
 								<!-- <a href="index.html">
 									<h4 class="tittle two">See all</h4>
 								</a> -->
 								<div class="clearfix"> </div>
 							</div>
 							<!-- Album -->
-							<div id="Discover"></div>
-							<script>
-								axios.get(`${host}/music/Album`)
-									.then(res => {
-										let j = 0;
-										res.data.map(item => {
-											if (j > 7) {
-												return;
-											}
-											document.getElementById('Discover').innerHTML += `
+							<div id="Discover">
+								<div class="col-md-3 content-grid last-grid">
+									<a href="browse.html"><img src="./images/Rap.jpg" title="RAP"></a>
+									<div class="inner-info"><a href="browse.html">
+											<h5>RAP</h5>
+										</a></div>
+								</div>
+								<div class="col-md-3 content-grid last-grid">
+									<a href="browse.html"><img src="./images/chill.jpg" title="CHILL"></a>
+									<div class="inner-info"><a href="browse.html">
+											<h5>CHILL</h5>
+										</a></div>
+								</div>
+								<div class="col-md-3 content-grid last-grid">
+									<a href="browse.html"><img src="./images/indie.jpg" title="INDIE"></a>
+									<div class="inner-info"><a href="browse.html">
+											<h5>INDIE</h5>
+										</a></div>
+								</div>
+								<div class="col-md-3 content-grid last-grid">
+									<a href="browse.html"><img src="./images/rock.jpg" title="ROCK"></a>
+									<div class="inner-info"><a href="browse.html">
+											<h5>ROCK</h5>
+										</a></div>
+								</div>
+								<div class="col-md-3 content-grid last-grid">
+									<a href="browse.html"><img src="./images/pop.jpg" title="POP"></a>
+									<div class="inner-info"><a href="browse.html">
+											<h5>POP</h5>
+										</a></div>
+								</div>
+							</div>
+							<!-- <script>
+								listGenes = ["chill", "indie", "rap", "rock", "pop"];
+								listGenes.map(item => {
+									console.log(item);
+									document.getElementById('Discover').innerHTML += `
 												<div class="col-md-3 content-grid last-grid">
-													<a href="browse.html"><img src="${host}/imageDATA/${item.image}" title="${item.name}"></a>
+													<a href="browse.html"><img src="" title="${item}"></a>
 														<div class="inner-info"><a href="browse.html">
-														<h5>${item.name}</h5>
+														<h5>${item}</h5>
 													</a></div>
 												</div>
 											`;
-											j++;
-										})
-
-									})
-									.catch(err => {
-										console.log("Error Render Album", err);
-									})
-							</script>
+								});
+							</script> -->
 							<div class="clearfix"> </div>
 						</div>
 						<!--//discover-view-->
@@ -530,16 +597,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									await axios.get(`${host}/music/track`)
 										.then((res) => {
 											let Tracks = res.data;
-											Tracks.slice(0,5).map(item => {
+											Tracks.slice(0, 5).map(item => {
 												var Track = {
 													title: item.name,
 													artist: item.artist.name,
-													poster: host+'/'+'imageDATA'+'/'+item.artworkImage,
-													mp3: host+'/musicData/'+item.fileName
+													poster: host + '/' + 'imageDATA' + '/' + item.artworkImage,
+													mp3: host + '/musicData/' + item.fileName
 												};
 												//console.log(Track);
 												listTrack.push(Track);
-
 											})
 										}
 										);
@@ -733,10 +799,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="footer-grid">
 				<h3>Navigation</h3>
 				<ul class="list1">
-				  <li><a href="index.html">Home</a></li>
-				  <li><a href="index.html">Artist</a></li>
-				  <li><a href="index.html">Favourite</a></li>
-				  <li><a href="contact.html">Contact</a></li>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="index.html">Artist</a></li>
+					<li><a href="index.html">Favourite</a></li>
+					<li><a href="contact.html">Contact</a></li>
 				</ul>
 			</div>
 			<!-- <div class="footer-grid">
@@ -754,36 +820,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="footer-grid">
 				<h3>Our Support</h3>
 				<ul class="list1">
-				  <li><a href="contact.html">Site Map</a></li>
-				  <li><a href="#">Search Terms</a></li>
-				  <li><a href="#">Advanced Search</a></li>
-				  <li><a href="#">Mobile</a></li>
-				  <li><a href="contact.html">Contact Us</a></li>
-				  <li><a href="#">Mobile</a></li>
-				  <li><a href="#">Addresses</a></li>
+					<li><a href="contact.html">Site Map</a></li>
+					<li><a href="#">Search Terms</a></li>
+					<li><a href="#">Advanced Search</a></li>
+					<li><a href="#">Mobile</a></li>
+					<li><a href="contact.html">Contact Us</a></li>
+					<li><a href="#">Mobile</a></li>
+					<li><a href="#">Addresses</a></li>
 				</ul>
-			  </div>
-				  <div class="footer-grid">
-					<h3>Newsletter</h3>
-					<p class="footer_desc">Send us something</p>
-					<div class="search_footer">
-					 <form>
-					   <input type="text" placeholder="Email...." required="">
-					  <input type="submit" value="Submit">
-					  </form>
-					</div>
-				 </div>
-				 <div class="footer-grid footer-grid_last">
-					<h3>About Us</h3>
-					<p class="footer_desc">Music and More...</p>
-					<p class="f_text">Phone:  &nbsp;&nbsp;&nbsp;012345678</p>
-					<p class="email">Email : &nbsp;<span><a href="mailto:support@musicpro.com">support@musicpro.com</a></span></p>	
-				 </div>
-				 <div class="clearfix"> </div>
 			</div>
+			<div class="footer-grid">
+				<h3>Newsletter</h3>
+				<p class="footer_desc">Send us something</p>
+				<div class="search_footer">
+					<form>
+						<input type="text" placeholder="Email...." required="">
+						<input type="submit" value="Submit">
+					</form>
+				</div>
+			</div>
+			<div class="footer-grid footer-grid_last">
+				<h3>About Us</h3>
+				<p class="footer_desc">Music and More...</p>
+				<p class="f_text">Phone: &nbsp;&nbsp;&nbsp;012345678</p>
+				<p class="email">Email : &nbsp;<span><a
+							href="mailto:support@musicpro.com">support@musicpro.com</a></span></p>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
 		</div>
 		<footer>
-		   <p>&copy 2020 Music Pro. All Rights Reserved</p>
+			<p>&copy 2020 Music Pro. All Rights Reserved</p>
 		</footer>
 	</section>
 
