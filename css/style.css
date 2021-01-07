@@ -1061,6 +1061,14 @@ a.trend:hover {
     position: absolute;
 	top: -22px;
 }
+.next-top li a.ar >img:hover{
+	cursor: pointer;
+	opacity: 0.7;
+}
+.next-top li a.ar2 >img:hover{
+	cursor: pointer;
+	opacity: 0.7;
+}
 .next-top li a.ar2{	
 	left: 10%;
     position: absolute;
@@ -1274,6 +1282,56 @@ a.top-sign {
     margin-bottom: 2%;
     position: relative;
 	padding-left: 0;
+}
+/* .content-grid::after{
+	content:'';
+	background-color: #ccc;
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	top: 10px;
+	right: 24px;
+} */
+.iconFavWrapper
+{
+	/* background-color: #ccc; */
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	top: 4px;
+	right: 20px;
+	z-index: 99;
+	border-radius: 50%;
+	/* box-shadow: 1px 2px 12px #ccc; */
+	/* background-color: rgba(255, 255, 255, 0.7); */
+	background-color: #ffc0c0;
+	transition: 0.1s all ease-in;
+	/* border: 1px solid #ccc; */
+	
+}
+.iconFavWrapper i{
+	font-size: 1.6rem;
+	color: rgb(255, 255, 255);
+	transition: 0.1s all ease-in;
+	position: absolute;
+	right: 7px;
+    top: 50%;
+	transform: translateY(-50%);
+}
+.iconFavWrapper:hover{
+	
+	box-shadow: 2px 4px 12px #ccc;
+	transform: scale(1.1001);
+}
+.iconFavWrapper:hover >i{
+	color: rgba(255, 0, 0, 0.393);
+}
+.active:hover >i
+{
+	color: rgb(255, 230, 230);
+}
+.active>i{
+	color: rgba(255, 0, 0);
 }
 .content-grid h3 {
       color: #fff;

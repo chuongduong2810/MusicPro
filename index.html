@@ -15,7 +15,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="./css/custom.css">
 	<!-- Graph CSS -->
-	<link href="css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 	<!-- jQuery -->
 	<!-- lined-icons -->
 	<link rel="stylesheet" href="css/icon-font.css" type='text/css' />
@@ -197,9 +197,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							<!--//-->
 							<ul class="next-top">
-								<li><a class="ar" href="#"> <img onclick="buttonPre()" src="images/arrow.png"
+								<li><a class="ar"> <img onclick="buttonPre()" src="images/arrow.png"
 											alt="" /></a></li>
-								<li><a class="ar2" href="#"><img onclick="buttonNext()" src="images/arrow2.png"
+
+								<li><a class="ar2"> <img onclick="buttonNext()" src="images/arrow2.png"
 											alt="" /></i></a></li>
 							</ul>
 						</div>
@@ -397,6 +398,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<div class="col-md-3 content-grid last-grid">
 												<a onclick="listenNow('${item._id}')"class="play-icon"><img src="${host}/imageDATA/${item.artworkImage}" title="${item.name}"></a>
 												<a class="button play-icon" onclick="listenNow('${item._id}')">${item.name}</a>
+												<div class="iconFavWrapper active">
+													<i class="fas fa-heart"></i>
+												</div>
 											</div>
 										`;
 										i++;
@@ -416,7 +420,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								playAudio.load();
 								playAudio.play();
 							}
-							function buttonPre() {
+							function buttonPre(e) {
+								// e.preventDefault();
 								if (check != false) {
 									console.log(newTrack);
 									newTrack.map((item, index) => {
@@ -451,6 +456,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								}
 							}
 							function buttonNext() {
+								if (check != false) {
+									//console.log(newTrack);//list all new track
+									console.log("id play: ",id_play);
+									let currentIndex = newTrack.findIndex(item=>item._id===id_play);
+									// console.log('Current index:',currentIndex);
+									if(currentIndex === newTrack.length-1)
+									{
+										let playAudio = document.getElementById('audio-player');
+										baihat = newTrack[0];
+										playAudio.src = `${host}/musicData/${baihat.fileName}`;
+										playAudio.load();
+										setTimeout(function () {
+											playAudio.play();
+										}, 1000);
+										console.log(baihat);
+									}
+									else {
+										let playAudio = document.getElementById('audio-player');
+										baihat = newTrack[currentIndex + 1];
+										playAudio.src = `${host}/musicData/${baihat.fileName}`;
+										playAudio.load();
+										playAudio.play();
+										console.log(baihat);
+									}
+									id_play = baihat._id;
+								}
 							}
 						</script>
 						<script>
@@ -853,7 +884,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<p>&copy 2020 Music Pro. All Rights Reserved</p>
 		</footer>
 	</section>
-
 	<script src="js/jquery.nicescroll.js"></script>
 	<script src="js/scripts.js"></script>
 	<!-- Bootstrap Core JavaScript -->
