@@ -175,6 +175,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<audio id="audio-player" controls="controls">
 									<source id="audioSource" src="" type="audio/mpeg">
 									</source>
+								</audio>
 							</div>
 							<!---->
 							<script type="text/javascript">
@@ -197,8 +198,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							<!--//-->
 							<ul class="next-top">
-								<li><a class="ar"> <img onclick="buttonPre()" src="images/arrow.png"
-											alt="" /></a></li>
+								<li><a class="ar"> <img onclick="buttonPre()" src="images/arrow.png" alt="" /></a></li>
 
 								<li><a class="ar2"> <img onclick="buttonNext()" src="images/arrow2.png"
 											alt="" /></i></a></li>
@@ -370,18 +370,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							axios.get(`${host}/music/track`)
 								.then(res => {
 									listTrack = res.data;
-									// res.data.map(item1 => {
-									// 	console.log("item1", item1.genre);
-									// 	// if (typeof (listGenres.find(item2 => item1.genre === item2.genre)) === 'undefined') {
-									// 	// 	listGenres.push(item1.genre);
-									// 	// 	console.log("xxx");
-									// 	// }
-
-									// 	//if (item1.genre == "chill") console.log("xxx");
-									// 	//console.log(listGenres);
-									// 	//console.log(typeof (listGenres.find(item2 => { item1.genre == item2.genre })) === 'undefined');
-									// 	//console.log(listGenres);
-									// });
 									newTrack = res.data.sort((item1, item2) => {
 										if (item1.createdate > item2.createdate) return -1;
 										else if (item1.createdate < item2.createdate) return 1;
@@ -420,8 +408,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								playAudio.load();
 								playAudio.play();
 							}
-							function buttonPre(e) {
-								// e.preventDefault();
+							function buttonPre() {
 								if (check != false) {
 									console.log(newTrack);
 									newTrack.map((item, index) => {
@@ -447,22 +434,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											}
 											id_play = baihat._id;
 										}
-									})
-									// let playAudio = document.getElementById('audio-player');
-									// let baihat = listTrack.find(item => item._id == id);
-									// playAudio.src = `${host}/musicData/${baihat.fileName}`;
-									// playAudio.load();
-									// playAudio.play();
+									});
 								}
 							}
 							function buttonNext() {
 								if (check != false) {
-									//console.log(newTrack);//list all new track
-									console.log("id play: ",id_play);
-									let currentIndex = newTrack.findIndex(item=>item._id===id_play);
-									// console.log('Current index:',currentIndex);
-									if(currentIndex === newTrack.length-1)
-									{
+									let currentIndex = newTrack.findIndex(item => item._id === id_play);
+									if (currentIndex === newTrack.length - 1) {
 										let playAudio = document.getElementById('audio-player');
 										baihat = newTrack[0];
 										playAudio.src = `${host}/musicData/${baihat.fileName}`;
@@ -470,7 +448,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										setTimeout(function () {
 											playAudio.play();
 										}, 1000);
-										console.log(baihat);
 									}
 									else {
 										let playAudio = document.getElementById('audio-player');
@@ -498,50 +475,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!-- Album -->
 							<div id="Discover">
 								<div class="col-md-3 content-grid last-grid">
-									<a href="browse.html"><img src="./images/Rap.jpg" title="RAP"></a>
-									<div class="inner-info"><a href="browse.html">
+									<a class="linkGenreDetails"><img src="./images/Rap.jpg" title="RAP"></a>
+									<div class="inner-info"><a>
 											<h5>RAP</h5>
 										</a></div>
 								</div>
 								<div class="col-md-3 content-grid last-grid">
-									<a href="browse.html"><img src="./images/chill.jpg" title="CHILL"></a>
-									<div class="inner-info"><a href="browse.html">
+									<a class="linkGenreDetails"><img src="./images/chill.jpg" title="CHILL"></a>
+									<div class="inner-info"><a>
 											<h5>CHILL</h5>
 										</a></div>
 								</div>
 								<div class="col-md-3 content-grid last-grid">
-									<a href="browse.html"><img src="./images/indie.jpg" title="INDIE"></a>
-									<div class="inner-info"><a href="browse.html">
+									<a class="linkGenreDetails"><img src="./images/indie.jpg" title="INDIE"></a>
+									<div class="inner-info"><a>
 											<h5>INDIE</h5>
 										</a></div>
 								</div>
 								<div class="col-md-3 content-grid last-grid">
-									<a href="browse.html"><img src="./images/rock.jpg" title="ROCK"></a>
-									<div class="inner-info"><a href="browse.html">
+									<a class="linkGenreDetails"><img src="./images/rock.jpg" title="ROCK"></a>
+									<div class="inner-info"><a>
 											<h5>ROCK</h5>
 										</a></div>
 								</div>
 								<div class="col-md-3 content-grid last-grid">
-									<a href="browse.html"><img src="./images/pop.jpg" title="POP"></a>
-									<div class="inner-info"><a href="browse.html">
+									<a class="linkGenreDetails"><img src="./images/pop.jpg" title="POP"></a>
+									<div class="inner-info"><a>
 											<h5>POP</h5>
 										</a></div>
 								</div>
 							</div>
-							<!-- <script>
-								listGenes = ["chill", "indie", "rap", "rock", "pop"];
-								listGenes.map(item => {
-									console.log(item);
-									document.getElementById('Discover').innerHTML += `
-												<div class="col-md-3 content-grid last-grid">
-													<a href="browse.html"><img src="" title="${item}"></a>
-														<div class="inner-info"><a href="browse.html">
-														<h5>${item}</h5>
-													</a></div>
-												</div>
-											`;
+							<script>
+								$(".linkGenreDetails").on("click", function () {
+									let Genre = $(this).next().children().children().html().toLowerCase();
+									localStorage.setItem('Genre', Genre);
+									window.location = `./Genres.html?Genre=${Genre}`;
 								});
-							</script> -->
+								$(".inner-info").on("click", function () {
+									let Genre = $(this).children().children().html().toLowerCase();
+									localStorage.setItem('Genre', Genre);
+									window.location = `./Genres.html?Genre=${Genre}`;
+								});
+							</script>
 							<div class="clearfix"> </div>
 						</div>
 						<!--//discover-view-->
@@ -658,7 +633,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											}
 										});
 								}
-
 								LoadMusic();
 							});
 						</script>
@@ -680,78 +654,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a href="single.html"><img src="images/v1.jpg" alt="" /></a>
 						<div class="slide-title">
 							<h4>Adele21
-						</div>
-						<div class="date-city">
-							<h5>Jan-02-16</h5>
-							<div class="buy-tickets">
-								<a href="single.html">READ MORE</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="single.html"><img src="images/v2.jpg" alt="" /></a>
-						<div class="slide-title">
-							<h4>Adele21</h4>
-						</div>
-						<div class="date-city">
-							<h5>Jan-02-16</h5>
-							<div class="buy-tickets">
-								<a href="single.html">READ MORE</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="single.html"><img src="images/v3.jpg" alt="" /></a>
-						<div class="slide-title">
-							<h4>Shomlock</h4>
-						</div>
-						<div class="date-city">
-							<h5>Jan-02-16</h5>
-							<div class="buy-tickets">
-								<a href="single.html">READ MORE</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="single.html"><img src="images/v4.jpg" alt="" /></a>
-						<div class="slide-title">
-							<h4>Stuck on a feeling</h4>
-						</div>
-						<div class="date-city">
-							<h5>Jan-02-16</h5>
-							<div class="buy-tickets">
-								<a href="single.html">READ MORE</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="single.html"><img src="images/v5.jpg" alt="" /></a>
-						<div class="slide-title">
-							<h4>Ricky Martine </h4>
-						</div>
-						<div class="date-city">
-							<h5>Jan-02-16</h5>
-							<div class="buy-tickets">
-								<a href="single.html">READ MORE</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="single.html"><img src="images/v6.jpg" alt="" /></a>
-						<div class="slide-title">
-							<h4>Ellie Goluding </h4>
-						</div>
-						<div class="date-city">
-							<h5>Jan-02-16</h5>
-							<div class="buy-tickets">
-								<a href="single.html">READ MORE</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<a href="single.html"><img src="images/v6.jpeg" alt="" /></a>
-						<div class="slide-title">
-							<h4>Fifty Shades </h4>
 						</div>
 						<div class="date-city">
 							<h5>Jan-02-16</h5>
