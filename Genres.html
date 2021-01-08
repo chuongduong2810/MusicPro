@@ -1,18 +1,11 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 
 <head>
-	<title>Mosaic a Entertainment Category Flat Bootstrap Responsive Website Template | Browse :: w3layouts</title>
+	<title>Music Pro | Genres</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="Mosaic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<meta name="keywords" content="Music Pro, nhạc hot, nhạc mới, nhạc dẫn đầu xu hướng, nhạc trending, thịnh hành" />
 	<script
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<!-- Bootstrap Core CSS -->
@@ -20,7 +13,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- Custom CSS -->
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<!-- Graph CSS -->
-	<link href="css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 	<!-- jQuery -->
 	<!-- lined-icons -->
 	<link rel="stylesheet" href="css/icon-font.css" type='text/css' />
@@ -48,7 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	}
 </script>
 
-<body class="sticky-header left-side-collapsed" onload="initMap()">
+<body class="sticky-header left-side-collapsed">
 	<section>
 		<!-- left side start-->
 		<div class="left-side sticky-left-side">
@@ -217,8 +210,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							<!--//-->
 							<ul class="next-top">
-								<li><a class="ar" href="#"> <img src="images/arrow.png" alt="" /></a></li>
-								<li><a class="ar2" href="#"><img src="images/arrow2.png" alt="" /></i></a></li>
+								<li><a class="ar" onclick="buttonPre()"> <img src="images/arrow.png" alt="" /></a></li>
+								<li><a class="ar2" onclick="buttonNext()"><img src="images/arrow2.png" alt="" /></i></a></li>
 
 							</ul>
 						</div>
@@ -281,32 +274,120 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							});
 						</script>
 						<!--//pop-up-box -->
-
 						<div class="browse">
-							<div class="tittle-head two">
-								<h3 class="tittle">New Releses <span class="new">New</span></h3>
-								<div class="clearfix"> </div>
+							<div class="tittle-head two" id="titleBlock">
+								<!-- <h3 class="tittle">Genres<span class="new">New</span></h3>
+								<div class="clearfix"> </div> -->
 							</div>
 							<div id="renderMusic">
 							</div>
 							<div class="clearfix"> </div>
 						</div>
+						<!-- Render title -->
 						<script>
+							let genreName = Genre.toUpperCase();
+							let titleBlock = document.querySelector(".tittle-head");
+							let title = `
+								<h3 class="tittle">${genreName}</h3>
+								<div class="clearfix"> </div>
+							`
+							titleBlock.innerHTML=title;
+						</script>
+						<script>
+							let listTrack=[]
 							let host = 'http://168.63.245.74:3000';
 							axios.get(`${host}/music/genre/${Genre}`)
 								.then(res => {
 									res.data.map(item => {
+										listTrack.push(item);
 										document.getElementById('renderMusic').innerHTML += `
 											<div class="col-md-3 browse-grid">
-												<a><img src="${host}/imageDATA/${item.artworkImage}" title="allbum-name"></a>
-												<a><i class="glyphicon glyphicon-play-circle"></i></a>
-												<a class="sing">${item.name}</a>
+												<a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
+												<a onclick="listenNow('${item._id}')" class="sing">${item.name}</a>
+												<div class="playingGIFWrapper" id="${item._id}">
+													<i class="far fa-pause-circle" style="display:none"></i>
+												</div>
+												<div class="iconFavWrapper">
+													<i class="fas fa-heart"></i>
+												</div>
 											</div>
 										`
 									})
 								})
-								.catch()
+								.catch();
+							// Click to play -->
+							
+							let check = false;
+							let id_play = '';
+							function listenNow(id) {
+								let playingGIFBlock = document.getElementById(id);
+								playingGIFBlock.innerHTML=`
+									<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
+								`
+								console.log("clicked",id)
+								check = true;
+								id_play = id;
+								let playAudio = document.getElementById('audio-player');
+								let baihat = listTrack.find(item => item._id == id);
+								playAudio.src = `${host}/musicData/${baihat.fileName}`;
+								playAudio.load();
+								playAudio.play();
+							}
+							//Check isPause
+							function buttonPre() {
+								if (check != false) {
+									console.log(listTrack);
+									listTrack.map((item, index) => {
+										if (item._id === id_play) {
+											let baihat;
+											if (index === 0) {
+												let playAudio = document.getElementById('audio-player');
+												baihat = listTrack[listTrack.length - 1];
+												playAudio.src = `${host}/musicData/${baihat.fileName}`;
+												playAudio.load();
+												setTimeout(function () {
+													playAudio.play();
+												}, 1);
+												console.log(baihat);
+											}
+											else {
+												let playAudio = document.getElementById('audio-player');
+												baihat = listTrack[index - 1];
+												playAudio.src = `${host}/musicData/${baihat.fileName}`;
+												playAudio.load();
+												playAudio.play();
+												console.log(baihat);
+											}
+											id_play = baihat._id;
+										}
+									});
+								}
+							}
+							function buttonNext() {
+								if (check != false) {
+									let currentIndex = listTrack.findIndex(item => item._id === id_play);
+									if (currentIndex === listTrack.length - 1) {
+										let playAudio = document.getElementById('audio-player');
+										baihat = listTrack[0];
+										playAudio.src = `${host}/musicData/${baihat.fileName}`;
+										playAudio.load();
+										setTimeout(function () {
+											playAudio.play();
+										}, 1000);
+									}
+									else {
+										let playAudio = document.getElementById('audio-player');
+										baihat = listTrack[currentIndex + 1];
+										playAudio.src = `${host}/musicData/${baihat.fileName}`;
+										playAudio.load();
+										playAudio.play();
+										console.log(baihat);
+									}
+									id_play = baihat._id;
+								}
+							}
 						</script>
+						
 					</div>
 
 					<!--body wrapper start-->
@@ -436,30 +517,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- /w3l-agile-info -->
 			</div>
 			<!--body wrapper end-->
-			<div class="footer two">
+			<div class="footer">
 				<div class="footer-grid">
 					<h3>Navigation</h3>
 					<ul class="list1">
 						<li><a href="index.html">Home</a></li>
-						<li><a href="radio.html">All Songs</a></li>
-						<li><a href="browse.html">Albums</a></li>
-						<li><a href="radio.html">New Collections</a></li>
-						<li><a href="blog.html">Blog</a></li>
+						<li><a href="index.html">Artist</a></li>
+						<li><a href="index.html">Favourite</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
 				</div>
-				<div class="footer-grid">
+				<!-- <div class="footer-grid">
 					<h3>Our Account</h3>
 					<ul class="list1">
-						<li><a href="#" data-toggle="modal" data-target="#myModal5">Your Account</a></li>
-						<li><a href="#">Personal information</a></li>
-						<li><a href="#">Addresses</a></li>
-						<li><a href="#">Discount</a></li>
-						<li><a href="#">Orders history</a></li>
-						<li><a href="#">Addresses</a></li>
-						<li><a href="#">Search Terms</a></li>
+					  <li><a href="#" data-toggle="modal" data-target="#myModal5">Your Account</a></li>
+					  <li><a href="#">Personal information</a></li>
+					  <li><a href="#">Addresses</a></li>
+					  <li><a href="#">Discount</a></li>
+					  <li><a href="#">Orders history</a></li>
+					  <li><a href="#">Addresses</a></li>
+					  <li><a href="#">Search Terms</a></li>
 					</ul>
-				</div>
+				</div> -->
 				<div class="footer-grid">
 					<h3>Our Support</h3>
 					<ul class="list1">
@@ -474,8 +553,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="footer-grid">
 					<h3>Newsletter</h3>
-					<p class="footer_desc">Nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-						commodo consequat</p>
+					<p class="footer_desc">Send us something</p>
 					<div class="search_footer">
 						<form>
 							<input type="text" placeholder="Email...." required="">
@@ -485,24 +563,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="footer-grid footer-grid_last">
 					<h3>About Us</h3>
-					<p class="footer_desc">Diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-						volutpat enim ad minim veniam,.</p>
-					<p class="f_text">Phone: &nbsp;&nbsp;&nbsp;00-250-2131</p>
+					<p class="footer_desc">Music and More...</p>
+					<p class="f_text">Phone: &nbsp;&nbsp;&nbsp;012345678</p>
 					<p class="email">Email : &nbsp;<span><a
-								href="mailto:mail@example.com">info(at)mailing.com</a></span></p>
+								href="mailto:support@musicpro.com">support@musicpro.com</a></span></p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-		</div>
-		<!--footer section start-->
-		<footer>
-			<p>&copy 2020 Music Pro. All Rights Reserved</p>
-		</footer>
-		<!--footer section end-->
-		<!-- /wthree-agile -->
-		<!-- main content end-->
+			</div>
+			<footer>
+				<p>&copy 2020 Music Pro. All Rights Reserved</p>
+			</footer>
 	</section>
-	<!-- /wthree-agile -->
 	<script src="js/jquery.nicescroll.js"></script>
 	<script src="js/scripts.js"></script>
 	<!-- Bootstrap Core JavaScript -->
