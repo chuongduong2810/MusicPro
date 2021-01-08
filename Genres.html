@@ -211,7 +211,8 @@
 							<!--//-->
 							<ul class="next-top">
 								<li><a class="ar" onclick="buttonPre()"> <img src="images/arrow.png" alt="" /></a></li>
-								<li><a class="ar2" onclick="buttonNext()"><img src="images/arrow2.png" alt="" /></i></a></li>
+								<li><a class="ar2" onclick="buttonNext()"><img src="images/arrow2.png" alt="" /></i></a>
+								</li>
 
 							</ul>
 						</div>
@@ -291,10 +292,10 @@
 								<h3 class="tittle">${genreName}</h3>
 								<div class="clearfix"> </div>
 							`
-							titleBlock.innerHTML=title;
+							titleBlock.innerHTML = title;
 						</script>
 						<script>
-							let listTrack=[]
+							let listTrack = [];
 							let host = 'http://168.63.245.74:3000';
 							axios.get(`${host}/music/genre/${Genre}`)
 								.then(res => {
@@ -316,15 +317,15 @@
 								})
 								.catch();
 							// Click to play -->
-							
+
 							let check = false;
 							let id_play = '';
 							function listenNow(id) {
 								let playingGIFBlock = document.getElementById(id);
-								playingGIFBlock.innerHTML=`
+								playingGIFBlock.innerHTML = `
 									<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
 								`
-								console.log("clicked",id)
+								console.log("clicked", id)
 								check = true;
 								id_play = id;
 								let playAudio = document.getElementById('audio-player');
@@ -387,7 +388,7 @@
 								}
 							}
 						</script>
-						
+
 					</div>
 
 					<!--body wrapper start-->
@@ -570,10 +571,10 @@
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-			</div>
-			<footer>
-				<p>&copy 2020 Music Pro. All Rights Reserved</p>
-			</footer>
+		</div>
+		<footer>
+			<p>&copy 2020 Music Pro. All Rights Reserved</p>
+		</footer>
 	</section>
 	<script src="js/jquery.nicescroll.js"></script>
 	<script src="js/scripts.js"></script>

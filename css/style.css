@@ -1354,7 +1354,8 @@ a.top-sign {
 	cursor: pointer;
 }
 .inner-info {
-    display: none;
+	display: none;
+	cursor: pointer;
 }
 .content-grid:hover .inner-info{
    display:block;
