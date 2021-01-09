@@ -1,5 +1,6 @@
 //Load music for Playlist
 $(document).ready(function () {
+    var check = false;
     async function LoadMusic() {
         //Lưu list bài hát vào đây
         var listTrack = [];
@@ -36,5 +37,8 @@ $(document).ready(function () {
             });
     }
     LoadMusic();
-
 });
+$(document).on($.jPlayer.event.play, function () {
+    let playAudio = document.getElementById('audio-player');
+    playAudio.pause();
+})

@@ -4,16 +4,16 @@ axios.get(`${host}/music/genre/${Genre}`)
         res.data.map(item => {
             listTrack.push(item);
             document.getElementById('renderMusic').innerHTML += `
-											<div class="col-md-3 browse-grid">
-												<a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
-												<a onclick="listenNow('${item._id}')" class="sing" style="cursor: pointer">${item.name}</a>
-												<div class="playingGIFWrapper" id="${item._id}" onclick="handlePauseResume()">
-												</div>
-												<div class="iconFavWrapper">
-													<i class="fas fa-heart"></i>
-												</div>
-											</div>
-										`
+                <div class="col-md-3 browse-grid">
+                    <a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
+                    <a onclick="listenNow('${item._id}')" class="sing" style="cursor: pointer">${item.name}</a>
+                    <div class="playingGIFWrapper" id="${item._id}" onclick="handlePauseResume()">
+                    </div>
+                    <div class="iconFavWrapper">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            `
         })
     })
     .catch();
@@ -32,10 +32,9 @@ function listenNow(id) {
     playAudio.load();
     playAudio.play();
 }
-function handlePauseResume() { 
+function handlePauseResume() {
     let player = document.getElementById("audio-player");
-    if(check)
-    {
+    if (check) {
         player.pause();
         check = false;
     }
@@ -43,7 +42,7 @@ function handlePauseResume() {
         player.play();
         check = true;
     }
- }
+}
 //Check isPause
 function buttonPre() {
     if (check != false) {
