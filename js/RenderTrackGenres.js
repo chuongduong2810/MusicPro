@@ -1,0 +1,131 @@
+let listTrack = [];
+axios.get(`${host}/music/genre/${Genre}`)
+    .then(res => {
+        res.data.map(item => {
+            listTrack.push(item);
+            document.getElementById('renderMusic').innerHTML += `
+											<div class="col-md-3 browse-grid">
+												<a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
+												<a onclick="listenNow('${item._id}')" class="sing" style="cursor: pointer">${item.name}</a>
+												<div class="playingGIFWrapper" id="${item._id}" style="position: absolute; right: 0;">
+												</div>
+												<div class="iconFavWrapper">
+													<i class="fas fa-heart"></i>
+												</div>
+											</div>
+										`
+        })
+    })
+    .catch();
+// Click to play -->
+
+let check = false;
+let id_play = '';
+function listenNow(id) {
+    console.log("clicked", id)
+    isPlay(id);
+    check = true;
+    id_play = id;
+    let playAudio = document.getElementById('audio-player');
+    let baihat = listTrack.find(item => item._id == id);
+    playAudio.src = `${host}/musicData/${baihat.fileName}`;
+    playAudio.load();
+    playAudio.play();
+}
+//Check isPause
+function buttonPre() {
+    if (check != false) {
+        listTrack.map((item, index) => {
+            if (item._id === id_play) {
+                let baihat;
+                if (index === 0) {
+                    let playAudio = document.getElementById('audio-player');
+                    baihat = listTrack[listTrack.length - 1];
+                    playAudio.src = `${host}/musicData/${baihat.fileName}`;
+                    playAudio.load();
+                    setTimeout(function () {
+                        playAudio.play();
+                    }, 1);
+                    console.log(baihat);
+                }
+                else {
+                    let playAudio = document.getElementById('audio-player');
+                    baihat = listTrack[index - 1];
+                    playAudio.src = `${host}/musicData/${baihat.fileName}`;
+                    playAudio.load();
+                    playAudio.play();
+                }
+                isPlay(baihat._id)
+                id_play = baihat._id;
+            }
+        });
+    }
+}
+function buttonNext() {
+    if (check != false) {
+        let currentIndex = listTrack.findIndex(item => item._id === id_play);
+        if (currentIndex === listTrack.length - 1) {
+            let playAudio = document.getElementById('audio-player');
+            baihat = listTrack[0];
+            playAudio.src = `${host}/musicData/${baihat.fileName}`;
+            playAudio.load();
+            setTimeout(function () {
+                playAudio.play();
+            }, 1000);
+        }
+        else {
+            let playAudio = document.getElementById('audio-player');
+            baihat = listTrack[currentIndex + 1];
+            playAudio.src = `${host}/musicData/${baihat.fileName}`;
+            playAudio.load();
+            playAudio.play();
+        }
+        isPlay(baihat._id);
+        id_play = baihat._id;
+    }
+}
+function isPlay(id) {
+    if (id == null) return;
+    for (let i = 0; i < listTrack.length; i++) {
+        if (listTrack[i]._id == id) {
+            let playingGIFBlock = document.getElementById(id);
+            playingGIFBlock.innerHTML = `
+											<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
+										`
+        }
+        else {
+            let playingGIFBlock = document.getElementById(listTrack[i]._id);
+            playingGIFBlock.innerHTML = ``;
+        }
+    }
+}
+function Pause() {
+    for (let i = 0; i < listTrack.length; i++) {
+        if (listTrack[i]._id == id_play) {
+            let playingGIFBlock = document.getElementById(id_play);
+            playingGIFBlock.innerHTML = `
+										<i class="far fa-pause-circle" style="position: absolute; "></i>
+										`
+            console.log(playingGIFBlock)
+        }
+        else {
+            let playingGIFBlock = document.getElementById(listTrack[i]._id);
+            playingGIFBlock.innerHTML = ``;
+        }
+    }
+}
+function Play() {
+    for (let i = 0; i < listTrack.length; i++) {
+        if (listTrack[i]._id == id_play) {
+            let playingGIFBlock = document.getElementById(id_play);
+            playingGIFBlock.innerHTML = `
+										<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
+										`
+            console.log(playingGIFBlock)
+        }
+        else {
+            let playingGIFBlock = document.getElementById(listTrack[i]._id);
+            playingGIFBlock.innerHTML = ``;
+        }
+    }
+}

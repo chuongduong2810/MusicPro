@@ -1287,6 +1287,7 @@ a.top-sign {
 } */
 .iconFavWrapper
 {
+	cursor: pointer;
 	/* background-color: #ccc; */
 	height: 30px;
 	width: 30px;

@@ -21,7 +21,7 @@
 	<!-- Meters graphs -->
 	<script src="js/jquery-2.1.4.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+	<script src="./js/host.js"></script>
 
 </head>
 <!-- /w3layouts-agile -->
@@ -184,7 +184,7 @@
 						<!---->
 						<div class="col-md-4 player">
 							<div class="audio-player">
-								<audio id="audio-player" controls="controls">
+								<audio id="audio-player" controls="controls" onpause="Pause()" onplay="Play()">
 									<source src="media/Blue Browne.ogg" type="audio/ogg">
 									</source>
 								</audio>
@@ -294,103 +294,8 @@
 							`
 							titleBlock.innerHTML = title;
 						</script>
-						<script>
-							let listTrack = [];
-							let host = 'http://168.63.245.74:3000';
-							axios.get(`${host}/music/genre/${Genre}`)
-								.then(res => {
-									res.data.map(item => {
-										listTrack.push(item);
-										document.getElementById('renderMusic').innerHTML += `
-											<div class="col-md-3 browse-grid">
-												<a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
-												<a onclick="listenNow('${item._id}')" class="sing">${item.name}</a>
-												<div class="playingGIFWrapper" id="${item._id}">
-													<i class="far fa-pause-circle" style="display:none"></i>
-												</div>
-												<div class="iconFavWrapper">
-													<i class="fas fa-heart"></i>
-												</div>
-											</div>
-										`
-									})
-								})
-								.catch();
-							// Click to play -->
-
-							let check = false;
-							let id_play = '';
-							function listenNow(id) {
-								let playingGIFBlock = document.getElementById(id);
-								playingGIFBlock.innerHTML = `
-									<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
-								`
-								console.log("clicked", id)
-								check = true;
-								id_play = id;
-								let playAudio = document.getElementById('audio-player');
-								let baihat = listTrack.find(item => item._id == id);
-								playAudio.src = `${host}/musicData/${baihat.fileName}`;
-								playAudio.load();
-								playAudio.play();
-							}
-							//Check isPause
-							function buttonPre() {
-								if (check != false) {
-									console.log(listTrack);
-									listTrack.map((item, index) => {
-										if (item._id === id_play) {
-											let baihat;
-											if (index === 0) {
-												let playAudio = document.getElementById('audio-player');
-												baihat = listTrack[listTrack.length - 1];
-												playAudio.src = `${host}/musicData/${baihat.fileName}`;
-												playAudio.load();
-												setTimeout(function () {
-													playAudio.play();
-												}, 1);
-												console.log(baihat);
-											}
-											else {
-												let playAudio = document.getElementById('audio-player');
-												baihat = listTrack[index - 1];
-												playAudio.src = `${host}/musicData/${baihat.fileName}`;
-												playAudio.load();
-												playAudio.play();
-												console.log(baihat);
-											}
-											id_play = baihat._id;
-										}
-									});
-								}
-							}
-							function buttonNext() {
-								if (check != false) {
-									let currentIndex = listTrack.findIndex(item => item._id === id_play);
-									if (currentIndex === listTrack.length - 1) {
-										let playAudio = document.getElementById('audio-player');
-										baihat = listTrack[0];
-										playAudio.src = `${host}/musicData/${baihat.fileName}`;
-										playAudio.load();
-										setTimeout(function () {
-											playAudio.play();
-										}, 1000);
-									}
-									else {
-										let playAudio = document.getElementById('audio-player');
-										baihat = listTrack[currentIndex + 1];
-										playAudio.src = `${host}/musicData/${baihat.fileName}`;
-										playAudio.load();
-										playAudio.play();
-										console.log(baihat);
-									}
-									id_play = baihat._id;
-								}
-							}
-						</script>
-
+						<script src="./js/RenderTrackGenres.js"></script>
 					</div>
-
 					<!--body wrapper start-->
 					<div class="review-slider">
 						<div class="tittle-head">
