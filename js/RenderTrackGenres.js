@@ -7,7 +7,7 @@ axios.get(`${host}/music/genre/${Genre}`)
 											<div class="col-md-3 browse-grid">
 												<a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
 												<a onclick="listenNow('${item._id}')" class="sing" style="cursor: pointer">${item.name}</a>
-												<div class="playingGIFWrapper" id="${item._id}" style="position: absolute; right: 0;">
+												<div class="playingGIFWrapper" id="${item._id}" onclick="handlePauseResume()">
 												</div>
 												<div class="iconFavWrapper">
 													<i class="fas fa-heart"></i>
@@ -32,6 +32,18 @@ function listenNow(id) {
     playAudio.load();
     playAudio.play();
 }
+function handlePauseResume() { 
+    let player = document.getElementById("audio-player");
+    if(check)
+    {
+        player.pause();
+        check = false;
+    }
+    else {
+        player.play();
+        check = true;
+    }
+ }
 //Check isPause
 function buttonPre() {
     if (check != false) {
@@ -90,7 +102,9 @@ function isPlay(id) {
         if (listTrack[i]._id == id) {
             let playingGIFBlock = document.getElementById(id);
             playingGIFBlock.innerHTML = `
-											<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
+                                    <div class="playingOverlay">
+                                        <img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>                            
+                                    </div>
 										`
         }
         else {
@@ -104,7 +118,9 @@ function Pause() {
         if (listTrack[i]._id == id_play) {
             let playingGIFBlock = document.getElementById(id_play);
             playingGIFBlock.innerHTML = `
-										<i class="far fa-pause-circle" style="position: absolute; "></i>
+                                    <div class="playingOverlay">
+                                        <i class="far fa-pause-circle" style="position: absolute;"></i>
+                                    </div>
 										`
             console.log(playingGIFBlock)
         }
@@ -119,7 +135,9 @@ function Play() {
         if (listTrack[i]._id == id_play) {
             let playingGIFBlock = document.getElementById(id_play);
             playingGIFBlock.innerHTML = `
-										<img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>
+                                    <div class="playingOverlay">
+                                        <img src="https://i.gifer.com/YdBO.gif" alt="this slowpoke moves"/>                            
+                                    </div>
 										`
             console.log(playingGIFBlock)
         }
