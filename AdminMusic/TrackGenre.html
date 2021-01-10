@@ -21,15 +21,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="js/jquery2.0.3.min.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/util.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./../js/host.js"></script>
 
 </head>
+<script>
+    let Genres = ["pop", "rap", "chill", "indie", "rock"];
+    var regex = /=(.+)/;
+    let Genre_In_URL = window.location.href.split(regex);
+    console.log(Genre_In_URL);
+    let Genre = localStorage.getItem('genre_admin');
+</script>
 
 <body>
     <section id="container">
         <header class="header fixed-top clearfix">
             <div class="brand">
                 <a href="./admin_product.html" class="logo">
-                    ACCESSORIES SHOP
+                    MUSIC ADMIN
                 </a>
                 <div class="sidebar-toggle-box">
                     <div class="fa fa-bars"></div>
@@ -39,48 +48,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         <aside>
             <div id="sidebar" class="nav-collapse">
-
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a href="./admin_bill.html" class="active">
+                            <a href="./index.html">
                                 <i class="fas fa-wallet"></i>
-                                <span>Quản lý đơn hàng</span>
+                                <span>Quản lý bài hát</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./admin_product.html">
+                            <a href="./Genres.html" class="active">
                                 <i class="fa fa-book"></i>
-                                <span>Quản lý sản phẩm</span>
+                                <span>Quản lý thể loại</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./admin_category.html">
+                            <a href="./Artist.html">
                                 <i class="fas fa-list-alt"></i>
-                                <span>Quản lý danh mục</span>
+                                <span>Quản lý Artist</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="./admin_user.html">
+                            <a href="./Album.html">
                                 <i class="fa fa-user"></i>
-                                <span>Quản lý người dùng</span>
+                                <span>Quản lý Album</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./admin_comment.html">
-                                <i class="fas fa-comment"></i>
-                                <span>Quản lý bình luận</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./admin_contact.html">
-                                <i class="fas fa-address-book"></i>
-                                <span>Quản lý liên hệ</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./admin_login.html" onclick="logout()">
+                            <a href="" onclick="logout()">
                                 <span>Đăng xuất</span>
                             </a>
                         </li>
@@ -94,42 +90,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper" id="adminContent">
-                <h3 class="title_component">CHI TIẾT BILL</h3>
+                <h3 class="title_component">DANH SÁCH BÀI HÁT GENRE</h3>
+                <div class="add-category">
+                    <a href="./addtrack.html" class="add-category_btn">+ Thêm</a>
+                </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="width: 5%">STT</th>
                             <th style="width: 10%">Hình ảnh</th>
-                            <th style="width: 20%">Tên sản phẩm</th>
-                            <th style="width: 10%">Loại</th>
-                            <th style="width: 10%">Giá bán</th>
-                            <th style="width: 10%">Số lượng mua</th>
+                            <th style="width: 20%">Tên bài hát</th>
+                            <th style="width: 10%">Audio</th>
                         </tr>
                     </thead>
-                    <tbody id="listDetailsBillAdmin">
-                        <tr>
-                            <td>1</td>
-                            <td><img src="https://images-na.ssl-images-amazon.com/images/I/71H4UOeWhlL._AC_SY679_.jpg"
-                                    alt="Phu kien dien thoai"></td>
-                            <td>OtterBox DEFENDER SERIES Case for iPhone SE</td>
-                            <td>Phone Case</td>
-                            <td>19$</td>
-                            <td>2</td>
-                        </tr>
+                    <tbody id="listTrackGenre">
                     </tbody>
+                    <script src="./js/Admin_RenderTrackGenre.js"></script>
                 </table>
             </section>
-            <div>
-                <ul class="pagination">
-                    <li id="liPre" class="page-item"><a id="btnPre" class="page-link disable" onclick="prePage()"> <i
-                                class="fas fa-caret-left"></i> </a></li>
-                    <div id="listPage" class="listPage">
-                        <li class="page-item"><a class="page-link">1</a></li>
-                    </div>
-                    <li id="liNext" class="page-item"><a id="btnNext" class="page-link" onclick="nextPage()"> <i
-                                class="fas fa-caret-right"></i> </i></a></li>
-                </ul>
-            </div>
         </section>
 
         <!--main content end-->

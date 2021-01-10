@@ -26,6 +26,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="js/jquery2.0.3.min.js"></script>
+    <script src="./../js/host.js"></script>
 </head>
 
 <body>
@@ -33,7 +34,7 @@
         <header class="header fixed-top clearfix">
             <div class="brand">
                 <a href="./admin_product.html" class="logo">
-                    ACCESSORIES SHOP
+                    MUSIC ADMIN
                 </a>
                 <div class="sidebar-toggle-box">
                     <div class="fa fa-bars"></div>
@@ -43,47 +44,35 @@
 
         <aside>
             <div id="sidebar" class="nav-collapse">
-
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a href="./admin_bill.html">
+                            <a href="./index.html" class="active">
                                 <i class="fas fa-wallet"></i>
-                                <span>Quản lý đơn hàng</span>
+                                <span>Quản lý bài hát</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./admin_product.html" class="active">
+                            <a href="./Genres.html">
                                 <i class="fa fa-book"></i>
-                                <span>Quản lý sản phẩm</span>
+                                <span>Quản lý thể loại</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./admin_category.html">
+                            <a href="./Artist.html">
                                 <i class="fas fa-list-alt"></i>
-                                <span>Quản lý danh mục</span>
+                                <span>Quản lý Artist</span>
                             </a>
                         </li>
+
                         <li>
-                            <a href="./admin_user.html">
+                            <a href="./Album.html">
                                 <i class="fa fa-user"></i>
-                                <span>Quản lý người dùng</span>
+                                <span>Quản lý Album</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./admin_comment.html">
-                                <i class="fas fa-comment"></i>
-                                <span>Quản lý bình luận</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./admin_contact.html">
-                                <i class="fas fa-address-book"></i>
-                                <span>Quản lý liên hệ</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./admin_login.html" onclick="logout()">
+                            <a href="" onclick="logout()">
                                 <span>Đăng xuất</span>
                             </a>
                         </li>
@@ -98,21 +87,37 @@
             <section class="wrapper" id="adminContent">
                 <h3 class="title_component">THÊM BÀI HÁT</h3>
                 <form class="form-add">
-
                     <p>Tên bài hát</p>
                     <input type="text" class="input_el" placeholder="Nhập tên bài hát" id="nameProduct" required>
-
                     <p>Hình ảnh</p>
-                    <input type="text" class="input_el" placeholder="Nhập link sản phẩm" id="imageProduct" required>
-                    <p>Nhạc sĩ</p>
-                    <input type="text" class="input_el" placeholder="Nhập tên nhạc sĩ" id="priceProduct" required>
+                    <img src="" alt="Product image" id="imagePreview"
+                        style="width: 7rem; height: 7rem; display:none; margin-bottom:0.5rem;margin-left: 1rem;" />
+                    <input type="file" class="input_el" id="selectedFile" style="display: none;" />
+                    <input type="button" value="Browse" onclick="document.getElementById('selectedFile').click();"
+                        style="display:block; margin-left: 1rem;" />
+                    <p>Album</p>
+                    <select id="genre">
+                        <option value="">--- Chọn thể loại nhạc ---</option>
+                        <option value="rap">RAP</option>
+                        <option value="pop">POP</option>
+                        <option value="indie">INDIE</option>
+                        <option value="chill">CHILL</option>
+                        <option value="rock">ROCK</option>
+                    </select>
                     <p>Ca sĩ</p>
-                    <input type="text" class="input_el" placeholder="Nhập tên ca sĩ" id="priceProduct" required>
+                    <select id="artist">
+                        <option value="">--- Chọn Artist ---</option>
+                    </select>
+                    <script src="./js/Admin_RenderArtistName.js"></script>
                     <p>File Audio</p>
-                    <input type="file" class="input_el" id="amountProduct" required>
+                    <audio controls id="audioPreview" style="display: none">
+                        <source src="" type="audio/mpeg">
+                    </audio>
+                    <input type="file" class="input_el" id="selectedFileAudio" style="display: none;" />
+                    <input type="button" value="Browse" onclick="document.getElementById('selectedFileAudio').click();"
+                        style="display:block; margin-left: 1rem; margin-bottom: 1rem;" />
 
-                    <button type="submit" value="Thêm sản phẩm" class="btn btn-primary" onclick="add()">Thêm bài
-                        hát</button>
+                    <button type="submit" class="btn btn-primary" onclick="add()">Thêm bài hát</button>
                 </form>
             </section>
         </section>
@@ -143,6 +148,18 @@
                         console.log(err);
                     })
             }
+        </script>
+        <script type="text/javascript">
+            $("#selectedFile").change(function () {
+                $("#imagePreview").attr('src', URL.createObjectURL(this.files[0]));
+                $("#imagePreview").css('display', 'block')
+            })
+        </script>
+        <script type="text/javascript">
+            $("#selectedFileAudio").change(function () {
+                $("#audioPreview").attr('src', URL.createObjectURL(this.files[0]));
+                $("#audioPreview").css('display', 'block')
+            })
         </script>
         <!--main content end-->
     </section>

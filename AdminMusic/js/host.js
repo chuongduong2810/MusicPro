@@ -1,1 +1,0 @@
-const host = "https://accessories1.herokuapp.com"

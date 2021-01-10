@@ -4,10 +4,6 @@
     <title>Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
-
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- //bootstrap-css -->
@@ -23,7 +19,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="css/util.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./../js/host.js"></script>
-
 </head>
 
 <body>
@@ -44,7 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a href="./index.html" class="active">
+                            <a href="./index.html">
                                 <i class="fas fa-wallet"></i>
                                 <span>Quản lý bài hát</span>
                             </a>
@@ -56,7 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
                         <li>
-                            <a href="./Artist.html">
+                            <a href="./Artist.html" class="active">
                                 <i class="fas fa-list-alt"></i>
                                 <span>Quản lý Artist</span>
                             </a>
@@ -82,33 +77,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         <!--main content start-->
         <section id="main-content">
-            <section class="wrapper" id="adminContent">
-                <h3 class="title_component">DANH SÁCH BÀI HÁT</h3>
+            <section class="wrapper" id="adminContent" style="height: 500px !important;">
+                <h3 class="title_component">DANH SÁCH ARTIST</h3>
                 <div class="add-category">
-                    <a href="./addtrack.html" class="add-category_btn">+ Thêm</a>
+                    <a href="./admin_addcategory.html" class="add-category_btn">+ Thêm</a>
                 </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th style="width: 5%">STT</th>
-                            <th style="width: 10%">Hình ảnh</th>
-                            <th style="width: 20%">Tên bài hát</th>
-                            <th style="width: 10%">Album</th>
-                            <th style="width: 10%">Ca sĩ</th>
-                            <th style="width: 10%">Thể loại</th>
-                            <th style="width: 10%">Audio</th>
-                            <th style="width: 15%">Hành động</th>
+                            <th style="width: 15%">Hình ảnh</th>
+                            <th style="width: 15%">Tên Artist</th>
+                            <th style="width: 20%">Hành động</th>
                         </tr>
                     </thead>
-                    <tbody id="listTrackAdmin">
+                    <tbody id="listArtistAdmin">
                     </tbody>
-                    <script src="./js/Admin_RenderTrack.js"></script>
+                    <script src="./js/Admin_RenderArtist.js"></script>
                 </table>
             </section>
         </section>
 
         <!--main content end-->
     </section>
+
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="js/scripts.js"></script>
