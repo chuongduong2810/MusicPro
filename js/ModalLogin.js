@@ -4,7 +4,7 @@ document.getElementsByClassName("login-pop")[0].innerHTML = `
             <span>Login <i class="arrow glyphicon glyphicon-chevron-right"></i></span>
         </a>
         <a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5">
-            <i class="fa fa-sign-in"></i>
+        <i class="fas fa-sign-out-alt"></i>
         </a>
         <div id="loginBox">
             <form id="loginForm">
