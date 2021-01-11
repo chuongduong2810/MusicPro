@@ -1,51 +1,19 @@
-let albums = [];
-axios.get(`${host}/music/album`)
-    .then(res => {
-        res.data.map(item => {
-            albums.push(item);
-            
-            document.getElementById('renderMusic').innerHTML += `
-                <div class="col-md-3 content-grid last-grid" onclick="clickDetailAlbum('${item._id}')" data-id=${item._id}    >
-                    <a class="linkGenreDetails"><img src="${host}/imageDATA/${item.image}" title="${item.name}"></a>
-                    <div class="inner-info album"><a>
-                        <h5>${item.name}</h5>
-                    </a></div>
-                </div>
-            `
-        })
-        console.log(albums);
-    })
-    .catch();
-console.log('AlBUMS',albums)
-
-
-
-
-    
-
-// // /<div class="col-md-3 content-grid last-grid">
-// <a class="linkGenreDetails"><img src="${host}/imageDATA/${item.artworkImage}" title="${item.name}"></a>
-// <div class="inner-info album"><a>
-//     <h5>${item.name}</h5>
-// </a></div>
-// </div>
-
-
-
-
-//Back
-function handleBack() {
+let artistID = localStorage.getItem('artist');
+let artists = [];
+clickAllAlbumsArtist(artistID);
+// //Back
+function handleBackOnAllTrackPage() {
     let renderMusicBlock = document.getElementById('renderMusic');
     let titleBlock = document.querySelector(".tittle-head");//title album
     titleBlock.innerHTML=`
-            <h3 class="tittle album-detail">All Albums</h3>
+            <h3 class="tittle album-detail">All Albums of ${artist.name}</h3>
             <div class="clearfix"> </div>
         `
     renderMusicBlock.innerHTML = ``;
-    
+    console.log('alubm',albums)
     albums.map(item => {
         renderMusicBlock.innerHTML += `
-            <div class="col-md-3 content-grid last-grid" onclick="clickDetailAlbum('${item._id}')" data-id=${item._id}    >
+            <div class="col-md-3 content-grid last-grid" onclick="clickAllTrackAlbum('${item._id}')" data-id=${item._id}    >
                 <a class="linkGenreDetails"><img src="${host}/imageDATA/${item.image}" title="${item.name}"></a>
                 <div class="inner-info album"><a>
                     <h5>${item.name}</h5>
@@ -57,9 +25,45 @@ function handleBack() {
 }
 
 let listTrack;
-
 // Click to detail -->
-function clickDetailAlbum(id) { 
+function clickAllAlbumsArtist(id) { 
+    console.log('CLicked',id);
+    let artistClicked;
+    let renderMusicBlock = document.getElementById('renderMusic');
+    let titleBlock = document.querySelector(".tittle-head");//title album
+    renderMusicBlock.innerHTML = ``;
+    axios.get(`${host}/music/artist`)
+    .then(res => {
+        
+        artistClicked = res.data.find(item => item._id === id);
+        artist = artistClicked;
+        console.log('Artist',artist);
+        albums = artist.albums;
+        console.log('Albums cua Artist',albums);
+
+        //<!-- Render title -->
+            
+        let title = `
+            <h3 class="tittle album-detail">All Albums of ${artistClicked.name}</h3>
+            <div class="clearfix"> </div>
+        `
+        titleBlock.innerHTML = title;
+
+        artistClicked.albums.map(item => {
+            renderMusicBlock.innerHTML += `
+                <div class="col-md-3 content-grid last-grid" onclick="clickAllTrackAlbum('${item._id}')" data-id=${item._id}    >
+                    <a class="linkGenreDetails"><img src="${host}/imageDATA/${item.image}" title="${item.name}"></a>
+                    <div class="inner-info album"><a>
+                        <h5>${item.name}</h5>
+                    </a></div>
+                </div>
+            `
+        })
+        console.log(albums);
+    })
+    .catch();
+}
+function clickAllTrackAlbum(id) { 
     console.log('CLicked',id);
     let albumClicked;
     let renderMusicBlock = document.getElementById('renderMusic');
@@ -79,7 +83,7 @@ function clickDetailAlbum(id) {
             
         let title = `
             <h3 class="tittle album-detail">${albumClicked.name} - ${albumClicked.artist.name}</h3>
-            <a class="btnBack-Wrapper" onclick="handleBack('${albums}')">
+            <a class="btnBack-Wrapper" onclick="handleBackOnAllTrackPage('${albums}')">
                 <i class="fas fa-arrow-left"></i>
                 <span class="btnBack"">Back</span>
             </a>

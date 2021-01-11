@@ -1,24 +1,40 @@
+
+let albumID = localStorage.getItem('album');
 let listTrack = [];
-axios.get(`${host}/music/genre/${Genre}`)
+axios.get(`${host}/music/album/`)
     .then(res => {
-        res.data.map(item => {
-            listTrack.push(item);
-            document.getElementById('renderMusic').innerHTML += `
-                <div class="col-md-3 browse-grid">
-                    <a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
-                    <a onclick="listenNow('${item._id}')" class="sing" style="cursor: pointer">${item.name}</a>
-                    <div class="playingGIFWrapper" id="${item._id}" onclick="handlePauseResume()">
-                    </div>
-                    <div class="iconFavWrapper">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
+        let albumWillDisplay = res.data.find(item => item._id === albumID);
+
+        if(albumWillDisplay)
+        {
+
+            let title = `
+            <h3 class="tittle album-detail">${albumWillDisplay.name} - ${albumWillDisplay.artist.name}</h3>
+            <div class="clearfix"> </div>
             `
-        })
+            titleBlock.innerHTML = title;
+            listTrack = albumWillDisplay.tracks;
+            listTrack.map(item => {
+                document.getElementById('renderMusic').innerHTML += `
+                    <div class="col-md-3 browse-grid">
+                        <a><img src="${host}/imageDATA/${item.artworkImage}" onclick="listenNow('${item._id}')" title="${item.name}"></a>
+                        <a onclick="listenNow('${item._id}')" class="sing" style="cursor: pointer">${item.name}</a>
+                        <div class="playingGIFWrapper" id="${item._id}" onclick="handlePauseResume()">
+                        </div>
+                        <div class="iconFavWrapper">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                `
+            })
+        }
     })
     .catch();
-// Click to play -->
 
+
+   
+// Click to play -->
+console.log('List',listTrack)
 let check = false;
 let id_play = '';
 function listenNow(id) {

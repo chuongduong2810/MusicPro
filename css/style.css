@@ -990,6 +990,11 @@ footer  p a:hover{
     color: #fff;
     text-transform: uppercase;
 }
+.banner-img:hover,
+.banner-info:hover
+{
+	cursor: pointer;
+}
 ul#slider4 h4 {
     position: absolute;
     top: 39%;
@@ -1259,6 +1264,24 @@ a.top-sign {
     font-size: 1.25em;
 }
 /*--albums--*/
+
+.tittle.album-detail
+{
+	float: none;
+	padding-bottom: 0px;
+}
+
+.btnBack
+{
+	text-decoration: none;
+
+}
+.btnBack-Wrapper:hover
+{
+	cursor: pointer;
+	text-decoration: none;
+}
+
 .albums {
   padding: 4em 0 0 0;
 }
@@ -1375,6 +1398,12 @@ a.top-sign {
 	-moz-border-radius:0px 0px 4px 4px;
 	-o-border-radius:0px 0px 4px 4px;
 }
+
+.content-grid:hover .inner-info.album
+{
+	width: 278px;
+}
+
 .inner-info h5 {
     color: #fff;
     font-size: 1em;
@@ -3510,6 +3539,10 @@ text-decoration:none;
 	.content-grid:hover .inner-info {
 		padding: 3px 10px;
 		width: 144px;
+	}
+	.content-grid:hover .inner-info.album
+	{
+		width: 175px;
 	}
 }
 @media (max-width:800px){
